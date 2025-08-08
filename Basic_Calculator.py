@@ -256,8 +256,10 @@ def clear_calculation_history():
 def set_max_decimals(user_input):
     global max_decimals
     specified_number = user_input.split(':', 1)[1]
+    if specified_number.endswith('.0'):
+        specified_number = specified_number.replace('.0', '', 1)
     try:
-        new_max_decimals = int(format_number(specified_number)[0])
+        new_max_decimals = int(specified_number)
     except ValueError:
         print('Max decimal places must be a correctly typed whole number!')
     else:
@@ -274,7 +276,7 @@ def set_max_decimals(user_input):
             print('Max decimal places must be in a range of 1-5!')
 
 #The 'show_help_guide' function does the mechanics of the 'show help guides' command.
-def show_help_guides():
+def show_help_guide():
     print('Help:')
     for help_line in HELP_GUIDES:
         print('-', help_line)
@@ -292,8 +294,10 @@ def use_previous_result():
 def use_specific_past_result(user_input):
     if not len(equations) == 0:
         specified_number = user_input.split('#', 1)[1]
+        if specified_number.endswith('.0'):
+            specified_number = specified_number.replace('.0', '', 1)
         try:
-            index_num = int(format_number(specified_number)[0]) 
+            index_num = int(specified_number)
         except ValueError:
             return 'Equation entry number must be a correctly typed whole number!'
         else:
